@@ -22,11 +22,9 @@ class DynamicChangeMaker:
         self.denominations = sorted(denominations)
 
     def find_coins(self, amount):
-        # Table to store the minimum number of coins for each amount from 0 to amount
         min_coins = [float("inf")] * (amount + 1)
         min_coins[0] = 0
 
-        # Table to store the last used coin to form the amount
         last_coin = [0] * (amount + 1)
 
         for coin in self.denominations:
@@ -35,7 +33,6 @@ class DynamicChangeMaker:
                     min_coins[i] = min_coins[i - coin] + 1
                     last_coin[i] = coin
 
-        # Reconstruct the result from the tables
         result = {}
         while amount > 0:
             coin = last_coin[amount]
@@ -45,7 +42,6 @@ class DynamicChangeMaker:
         return result
 
 
-# Функція для вимірювання часу виконання функції
 def measure_time(func, *args):
     start_time = time.time()
     result = func(*args)
@@ -75,12 +71,10 @@ def main(denominations, test_amounts):
             f"Amount: {amount}, Greedy Result: {greedy_result}, Dynamic Result: {dynamic_result}"
         )
 
-    # Виведення результатів у таблиці за допомогою tabulate
     headers = ["Amount", "Greedy Algorithm Time (s)", "Dynamic Algorithm Time (s)"]
     table = tabulate(results, headers=headers, tablefmt="pipe")
     print(f"{table}\n")
 
-    # Побудова графіків за допомогою matplotlib
     plt.plot(test_amounts, greedy_times, label="Greedy Algorithm", marker="o")
     plt.plot(test_amounts, dynamic_times, label="Dynamic Algorithm", marker="o")
     plt.xlabel("Amount")
