@@ -78,7 +78,7 @@ def main(denominations, test_amounts):
     # Виведення результатів у таблиці за допомогою tabulate
     headers = ["Amount", "Greedy Algorithm Time (s)", "Dynamic Algorithm Time (s)"]
     table = tabulate(results, headers=headers, tablefmt="pipe")
-    print(table)
+    print(f"{table}\n")
 
     # Побудова графіків за допомогою matplotlib
     plt.plot(test_amounts, greedy_times, label="Greedy Algorithm", marker="o")
